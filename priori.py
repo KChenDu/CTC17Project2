@@ -13,16 +13,16 @@ class PrioriClassifier():
         if fraction >= 0.5:
             return None
         if self.labelToInt == None:
-            fTrainingY = self.trainingY
+            intTrainingY = self.trainingY
         else:
-            fTrainingY = [self.labelToInt[label] for label in self.trainingY]
+            intTrainingY = [self.labelToInt[label] for label in self.trainingY]
         
-        fTrainingY.sort()
-        quantiteToTruncateEachSide = int(len(fTrainingY) * fraction / 2)
+        intTrainingY.sort()
+        quantiteToTruncateEachSide = int(len(intTrainingY) * fraction / 2)
         startIdx = quantiteToTruncateEachSide
-        endIdx = len(fTrainingY) - quantiteToTruncateEachSide
+        endIdx = len(intTrainingY) - quantiteToTruncateEachSide
 
-        truncatedData = fTrainingY[startIdx:endIdx]
+        truncatedData = intTrainingY[startIdx:endIdx]
         truncatedMean = statistics.fmean(truncatedData)
 
         intToLabel = {value: label for label, value in self.labelToInt.items()}
