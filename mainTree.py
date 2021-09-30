@@ -12,4 +12,6 @@ training_results = results[:limiter]
 testing_results = results[limiter:]
 
 tree = DecisionTree(training_data, training_results, possible_results, factors, factors_values)
-tree.show()
+# tree.show()
+
+print(f"{tree.evaluate(testing_data, testing_results)} hits in {len(testing_data)} samples.")

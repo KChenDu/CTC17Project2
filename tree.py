@@ -11,6 +11,7 @@ class DecisionTree:
         self.tree = Tree()
         self.possible_results = possible_results
         self.num_possible_results = len(possible_results)
+        self.factors = factors
         self.get_tree(copy.deepcopy(data), results[:], factors[:], copy.deepcopy(factors_values), statistics.mode(results), None)
 
     def add_node(self, title, parent):
@@ -81,5 +82,15 @@ class DecisionTree:
         self.tree.show()
 
     def evaluate(self, data, results):
-        # TODO: Receber dados e resultados, retorna um medidor de acerto
-        pass
+        hits = 0
+        for i in range(len(data)):
+            node = self.tree.get_node(0)
+            while not node.is_leaf():
+                children = Tree.children(self.tree, node.identifier)
+                for child in children:
+                    if child.tag == data[i][self.factors.index(node.tag)]:
+                        node = Tree.children(self.tree, child.identifier)[0]
+                        break
+            if node.tag == results[i]:
+                hits += 1
+        return hits
