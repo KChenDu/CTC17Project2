@@ -14,4 +14,4 @@ testing_results = results[limiter:]
 tree = DecisionTree(training_data, training_results, possible_results, factors, factors_values)
 # tree.show()
 
-print(f"{tree.evaluate(testing_data, testing_results)} hits in {len(testing_data)} samples.")
+print(f"{tree.getHitRate(testing_data, testing_results)*len(testing_data)} hits in {len(testing_data)} samples.")
