@@ -12,7 +12,7 @@ def get_data(file):
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
             if reader.line_num < 2:
-                factors = [row[2], row[3], row[5], row[6], row[7], row[7]]
+                factors = [row[2], row[3], row[5], row[6], row[7], row[8]]
             else:
                 data.append([row[2], row[3], row[5], row[6], row[7], row[8]])
                 results.append(row[4])
