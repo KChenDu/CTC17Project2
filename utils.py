@@ -1,4 +1,8 @@
 import csv
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn import metrics
 
 
 def get_data(file):
@@ -22,3 +26,15 @@ def get_data(file):
                     if not data[-1][i] in factors_values[i]:
                         factors_values[i].append(data[-1][i])
     return data, results, possible_results, factors, factors_values
+
+def plotConfusionMatrix(true_results, prediction, labels=None, title=None):
+    cf_matrix = metrics.confusion_matrix(true_results, prediction)
+    sns.heatmap(cf_matrix/np.sum(cf_matrix), fmt='.1%', annot=True,
+        xticklabels=labels, yticklabels=labels, cmap='Blues', center=0.3,
+        vmin=0.0, vmax=0.75)
+
+    plt.title(title)
+    plt.ylabel('True Accident level')
+    plt.xlabel('Predicted Accident level')
+    plt.savefig(title + '.png')
+    plt.show()
