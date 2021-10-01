@@ -81,9 +81,10 @@ class DecisionTree:
     def show(self):
         self.tree.show()
 
-    def evaluate(self, data, results):
-        hits = 0
-        for i in range(len(data)):
+    def predict(self, data):
+        prediction = []
+        total = len(data)
+        for i in range(total):
             node = self.tree.get_node(0)
             while not node.is_leaf():
                 children = Tree.children(self.tree, node.identifier)
@@ -91,6 +92,15 @@ class DecisionTree:
                     if child.tag == data[i][self.factors.index(node.tag)]:
                         node = Tree.children(self.tree, child.identifier)[0]
                         break
-            if node.tag == results[i]:
+            prediction.append(node.tag)
+        return prediction
+
+    def getHitRate(self, data, results):
+        hits = 0
+        total = len(data)
+        prediction = self.predict(data)
+
+        for i in range(total):
+            if prediction[i] == results[i]:
                 hits += 1
-        return hits
+        return hits/total
